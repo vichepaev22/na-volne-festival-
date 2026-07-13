@@ -3,9 +3,14 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
 const daysNode = document.querySelector("[data-countdown-days]");
 const captionNode = document.querySelector("[data-countdown-caption]");
+const hero = document.querySelector(".hero");
+const motionSections = document.querySelectorAll(
+  ".route-section, .intro, .distance-section, .participants-section, .safety-section, .program-section, .map-section, .partners-section, .updates-section, .faq-section"
+);
 
 const eventDate = new Date("2026-08-02T00:00:00+05:00");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let scrollTicking = false;
 
 function setupHeaderState() {
   if (!header) return;
@@ -60,7 +65,10 @@ function updateCountdown() {
 
 function setupReveal() {
   const groups = [
+    ".hero-tags span",
     ".intro-grid > *",
+    ".route-section .section-heading > *",
+    ".route-choice",
     ".distance-heading > *",
     ".distance-card",
     ".category-strip span",
@@ -73,6 +81,9 @@ function setupReveal() {
     ".route-map",
     ".partner-tile",
     ".updates-section > *",
+    ".registration-state",
+    ".readiness-list li",
+    ".updates-actions .button",
     ".faq-section > *",
     ".faq-list details"
   ];
@@ -103,6 +114,40 @@ function setupReveal() {
   revealNodes.forEach((node) => observer.observe(node));
 }
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function updateScrollMotion() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  document.documentElement.style.setProperty("--progress", progress.toFixed(4));
+
+  if (!prefersReducedMotion) {
+    if (hero) {
+      const heroShift = clamp(window.scrollY * 0.08, 0, 44);
+      const ribbonShift = clamp(window.scrollY * 0.12, 0, 96);
+      hero.style.setProperty("--hero-shift", `${heroShift}px`);
+      hero.style.setProperty("--hero-ribbon", `${ribbonShift}px`);
+    }
+
+    motionSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const shift = clamp((window.innerHeight / 2 - rect.top) * 0.018, -18, 18);
+      section.style.setProperty("--section-shift", `${shift}px`);
+    });
+  }
+
+  scrollTicking = false;
+}
+
+function requestScrollMotion() {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  window.requestAnimationFrame(updateScrollMotion);
+}
+
 window.addEventListener("resize", () => {
   if (window.innerWidth > 1080) closeNav();
 });
@@ -119,7 +164,11 @@ nav?.addEventListener("click", (event) => {
   if (event.target instanceof HTMLAnchorElement) closeNav();
 });
 
+window.addEventListener("scroll", requestScrollMotion, { passive: true });
+window.addEventListener("resize", requestScrollMotion);
+
 setupHeaderState();
 updateCountdown();
 setupReveal();
+updateScrollMotion();
 window.setTimeout(() => document.body.classList.add("motion-ready"), 60);

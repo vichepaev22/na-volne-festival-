@@ -13,6 +13,7 @@
   --shadow: 0 26px 90px rgba(8, 32, 46, 0.18);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --max: 1180px;
+  --progress: 0;
 }
 
 *,
@@ -65,6 +66,27 @@ body::selection {
   width: 1px;
   height: 1px;
   pointer-events: none;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 4px;
+  background: rgba(8, 32, 46, 0.14);
+  pointer-events: none;
+}
+
+.scroll-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sun), var(--orange), var(--aqua));
+  transform: scaleX(var(--progress));
+  transform-origin: left center;
+  transition: transform 90ms linear;
 }
 
 .skip-link {
@@ -123,6 +145,7 @@ button {
 }
 
 .section,
+.route-section,
 .distance-section,
 .participants-section,
 .safety-section,
@@ -218,7 +241,7 @@ button {
 
 .site-nav a,
 .header-cta {
-  min-height: 44px;
+  min-height: 46px;
   padding: 12px 14px;
   border-radius: 6px;
   font-size: 0.92rem;
@@ -260,8 +283,9 @@ button {
 .hero-image {
   object-fit: cover;
   object-position: 58% center;
-  transform: scale(1.035);
+  transform: translate3d(0, var(--hero-shift, 0px), 0) scale(1.045);
   transform-origin: center center;
+  transition: transform 120ms linear;
 }
 
 .hero-shade {
@@ -284,6 +308,7 @@ button {
     linear-gradient(105deg, transparent 0 68%, rgba(255, 106, 42, 0.4) 68% 69.4%, transparent 69.4% 100%);
   opacity: 0.64;
   pointer-events: none;
+  transform: translate3d(var(--hero-ribbon, 0px), 0, 0);
 }
 
 .hero-content {
@@ -329,6 +354,38 @@ button {
   color: rgba(255, 255, 255, 0.88);
   font-size: 1.28rem;
   line-height: 1.5;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 740px;
+  margin-top: 26px;
+}
+
+.hero-tags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  color: var(--white);
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+}
+
+.hero-tags svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--sun);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .hero-actions {
@@ -511,6 +568,158 @@ button {
   min-width: 184px;
 }
 
+.route-section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 96px max(20px, calc((100% - var(--max)) / 2));
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(247, 245, 239, 0.96), rgba(220, 239, 240, 0.86)),
+    radial-gradient(circle at 12% 18%, rgba(255, 211, 78, 0.32), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(0, 167, 181, 0.24), transparent 34%);
+}
+
+.route-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(105deg, transparent 0 18%, rgba(0, 167, 181, 0.12) 18% 18.7%, transparent 18.7% 100%),
+    linear-gradient(105deg, transparent 0 54%, rgba(255, 106, 42, 0.12) 54% 54.8%, transparent 54.8% 100%);
+  transform: translate3d(var(--section-shift, 0px), 0, 0);
+  pointer-events: none;
+}
+
+.route-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.route-section .section-heading {
+  align-items: end;
+}
+
+.route-section .section-kicker {
+  color: var(--deep-aqua);
+}
+
+.route-section h2 {
+  margin: 0;
+  max-width: 780px;
+  font-size: 3rem;
+  font-weight: 950;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.route-section .section-heading p {
+  color: var(--ink-soft);
+}
+
+.route-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.route-choice {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  align-content: start;
+  min-height: 310px;
+  padding: 24px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(8, 32, 46, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 18px 55px rgba(8, 32, 46, 0.08);
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.route-choice::before {
+  content: "";
+  position: absolute;
+  inset: auto -10% -46% 34%;
+  z-index: 0;
+  height: 190px;
+  background: radial-gradient(circle, rgba(0, 167, 181, 0.2), transparent 68%);
+  pointer-events: none;
+}
+
+.route-choice > * {
+  position: relative;
+  z-index: 1;
+}
+
+.route-choice:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 105, 120, 0.32);
+  box-shadow: 0 24px 70px rgba(8, 32, 46, 0.14);
+}
+
+.choice-label {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-grid;
+  place-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 950;
+  background: var(--sun);
+  border-radius: 999px;
+}
+
+.route-choice strong {
+  display: block;
+  margin-top: 34px;
+  max-width: 300px;
+  font-size: 1.45rem;
+  line-height: 1.08;
+}
+
+.route-choice p {
+  margin: 16px 0 0;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.choice-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 24px;
+  color: var(--deep-aqua);
+  font-weight: 950;
+}
+
+.choice-action svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms var(--ease-out);
+}
+
+.route-choice:hover .choice-action svg {
+  transform: translateX(4px);
+}
+
 .section {
   width: min(100% - 40px, var(--max));
   margin: 0 auto;
@@ -552,7 +761,7 @@ button {
   z-index: 0;
   background-position: center;
   background-size: cover;
-  transform: scale(1.035);
+  transform: translate3d(0, var(--section-shift, 0px), 0) scale(1.045);
   transform-origin: center;
 }
 
@@ -702,7 +911,7 @@ button {
     linear-gradient(90deg, rgba(8, 32, 46, 0.96), rgba(8, 32, 46, 0.82) 42%, rgba(8, 32, 46, 0.54)),
     linear-gradient(0deg, rgba(8, 32, 46, 0.98), rgba(8, 32, 46, 0.18) 48%, rgba(8, 32, 46, 0.86)),
     url("assets/course-swimmers.jpg") center 50% / cover;
-  transform: scale(1.08);
+  transform: translate3d(0, var(--section-shift, 0px), 0) scale(1.08);
   transform-origin: center center;
 }
 
@@ -941,7 +1150,7 @@ button {
     url("assets/course-swimmers.jpg") center 46% / cover;
   mix-blend-mode: multiply;
   opacity: 0.8;
-  transform: scale(1.08);
+  transform: translate3d(0, var(--section-shift, 0px), 0) scale(1.08);
   transform-origin: center center;
 }
 
@@ -1011,7 +1220,7 @@ button {
     linear-gradient(90deg, rgba(8, 32, 46, 0.88), rgba(8, 32, 46, 0.54) 48%, rgba(8, 32, 46, 0.22)),
     linear-gradient(0deg, rgba(8, 32, 46, 0.86), rgba(8, 32, 46, 0.08) 62%),
     url("assets/course-swimmers.jpg") center 50% / cover;
-  transform: scale(1.08);
+  transform: translate3d(0, var(--section-shift, 0px), 0) scale(1.08);
   transform-origin: center center;
 }
 
@@ -1055,6 +1264,7 @@ button {
 }
 
 .distance-card,
+.route-choice,
 .audience-card,
 .program-card,
 .partner-tile,
@@ -1067,6 +1277,7 @@ button {
 }
 
 .distance-card:hover,
+.route-choice:hover,
 .audience-card:hover,
 .program-card:hover,
 .partner-tile:hover {
@@ -1234,7 +1445,64 @@ button {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.updates-panel .button {
+.registration-state {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 18px;
+  color: var(--ink);
+  background: var(--sun);
+  border-radius: 8px;
+}
+
+.registration-state span {
+  color: var(--deep-aqua);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.registration-state strong {
+  font-size: 1.35rem;
+  line-height: 1.12;
+}
+
+.readiness-list {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.readiness-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 12px;
+  align-items: start;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  margin-top: 6px;
+  background: rgba(255, 255, 255, 0.36);
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  border-radius: 50%;
+}
+
+.status-dot.is-ready {
+  background: var(--lime);
+  border-color: var(--lime);
+  box-shadow: 0 0 0 4px rgba(184, 221, 53, 0.16);
+}
+
+.updates-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 24px;
 }
 
@@ -1363,6 +1631,7 @@ details p {
   .program-list,
   .partner-grid,
   .audience-grid,
+  .route-choice-grid,
   .category-strip {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1425,6 +1694,7 @@ details p {
   .hero-content {
     width: min(100% - 28px, var(--max));
     padding-top: 132px;
+    padding-bottom: 24px;
   }
 
   .hero h1 {
@@ -1440,15 +1710,22 @@ details p {
     gap: 10px;
   }
 
+  .hero-tags {
+    display: grid;
+    gap: 8px;
+  }
+
   .button {
     width: 100%;
   }
 
   .countdown {
-    left: 14px;
-    right: 14px;
-    bottom: 22px;
-    width: auto;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: min(100% - 28px, var(--max));
+    margin: 0 auto 22px;
     min-height: 116px;
     grid-template-columns: auto 1fr;
     align-items: end;
@@ -1466,6 +1743,7 @@ details p {
   .program-list,
   .partner-grid,
   .audience-grid,
+  .route-choice-grid,
   .distance-grid,
   .category-strip {
     grid-template-columns: 1fr;
@@ -1500,6 +1778,7 @@ details p {
   }
 
   .intro,
+  .route-section,
   .participants-section,
   .program-section,
   .partners-section,
@@ -1509,6 +1788,7 @@ details p {
   }
 
   .intro h2,
+  .route-section h2,
   .section h2,
   .distance-section h2,
   .safety-section h2,
@@ -1558,6 +1838,21 @@ details p {
 
   .reveal-target {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-image,
+  .hero::after,
+  .route-section::before,
+  .intro::before,
+  .participants-section::before,
+  .program-section::before,
+  .partners-section::before,
+  .faq-section::before,
+  .updates-section::before,
+  .distance-section::before,
+  .safety-section::before,
+  .map-section::before {
     transform: none !important;
   }
 }

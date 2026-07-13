@@ -19,7 +19,11 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'none'; form-action 'self'; upgrade-insecure-requests"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308202e'/%3E%3Cpath d='M12 40c7 0 7-6 14-6s7 6 14 6 7-6 12-6' fill='none' stroke='%2300a7b5' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='20' r='9' fill='%23ffd34e'/%3E%3C/svg%3E"
     />
     <link rel="preload" href="assets/start-arch-athletes.jpg" as="image" />
     <link rel="stylesheet" href="styles.css" />
@@ -100,7 +104,15 @@
         <circle cx="12" cy="14.5" r="5.5" />
         <path d="M12 12.2v4.6M9.8 14.5h4.4" />
       </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h13" />
+        <path d="m13 6 6 6-6 6" />
+      </symbol>
     </svg>
+
+    <div class="scroll-progress" aria-hidden="true">
+      <span data-scroll-progress></span>
+    </div>
 
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="На волне">
@@ -150,6 +162,11 @@
           <p class="hero-copy">
             Открытая вода, спортивный старт и семейный день у берега. В спортивной части запланировано 40 участников: любители выходят на 400 метров, профи - на 800 метров.
           </p>
+          <div class="hero-tags" aria-label="Формат события">
+            <span><svg aria-hidden="true"><use href="#icon-swimmer"></use></svg>400 м</span>
+            <span><svg aria-hidden="true"><use href="#icon-buoy"></use></svg>800 м</span>
+            <span><svg aria-hidden="true"><use href="#icon-users"></use></svg>40 участников</span>
+          </div>
           <div class="hero-actions" aria-label="Действия">
             <a class="button button-primary" href="#distances">Выбрать дистанцию</a>
             <a class="button button-ghost" href="#participants">Кто участвует</a>
@@ -194,6 +211,41 @@
           Здесь появятся ссылка на регистрацию, точное время старта, контакты оргкомитета и финальная схема пляжной территории.
         </p>
         <a class="button button-primary" href="#updates">Что появится дальше</a>
+      </section>
+
+      <section class="route-section" id="routes" aria-labelledby="routes-title" data-motion-section>
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Быстрый маршрут</div>
+            <h2 id="routes-title">Выберите, как вы попадете на волну.</h2>
+          </div>
+          <p>
+            Страница собрана как навигатор: участник видит дистанцию и статус регистрации, зритель - программу берега, партнер - место для участия в событии.
+          </p>
+        </div>
+        <div class="route-choice-grid" aria-label="Маршруты посетителей сайта">
+          <a class="route-choice" href="#distances">
+            <svg class="card-icon" aria-hidden="true"><use href="#icon-swimmer"></use></svg>
+            <span class="choice-label">Участвую</span>
+            <strong>Хочу выйти на старт</strong>
+            <p>Сразу к дистанциям, категориям и условиям, которые будут уточнены в положении.</p>
+            <span class="choice-action">К дистанциям <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+          </a>
+          <a class="route-choice" href="#program">
+            <svg class="card-icon" aria-hidden="true"><use href="#icon-users"></use></svg>
+            <span class="choice-label">Иду с семьей</span>
+            <strong>Планирую день на пляже</strong>
+            <p>К программе фестиваля, береговой зоне и будущей схеме территории.</p>
+            <span class="choice-action">К программе <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+          </a>
+          <a class="route-choice" href="#partners">
+            <svg class="card-icon" aria-hidden="true"><use href="#icon-medal"></use></svg>
+            <span class="choice-label">Поддерживаю</span>
+            <strong>Хочу быть партнером</strong>
+            <p>К блоку организаторов и свободным местам для логотипов будущих спонсоров.</p>
+            <span class="choice-action">К партнерам <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+          </a>
+        </div>
       </section>
 
       <section class="section intro" id="about">
@@ -387,10 +439,23 @@
           <h2 id="updates-title">Регистрация откроется после публикации положения.</h2>
         </div>
         <div class="updates-panel">
+          <div class="registration-state" aria-label="Текущий статус регистрации">
+            <span>Сейчас</span>
+            <strong>Ожидается положение соревнований</strong>
+          </div>
           <p>
             На сайт осталось добавить ссылку регистрации, положение соревнований, точное время начала, контакты оргкомитета и финальную схему пляжной территории.
           </p>
-          <a class="button button-primary" href="#distances">Посмотреть дистанции</a>
+          <ul class="readiness-list" aria-label="Что уже готово и что ожидается">
+            <li><span class="status-dot is-ready" aria-hidden="true"></span>Дата, место и формат события опубликованы</li>
+            <li><span class="status-dot is-ready" aria-hidden="true"></span>Дистанции 400 м и 800 м обозначены</li>
+            <li><span class="status-dot" aria-hidden="true"></span>Регистрационная ссылка ожидается</li>
+            <li><span class="status-dot" aria-hidden="true"></span>Финальная схема пляжа ожидается</li>
+          </ul>
+          <div class="updates-actions">
+            <a class="button button-primary" href="#distances">Посмотреть дистанции</a>
+            <a class="button button-ghost" href="#program">Посмотреть программу</a>
+          </div>
           <p class="note">Статус: событие объявлено, регистрационная ссылка ожидается.</p>
         </div>
       </section>
@@ -429,7 +494,7 @@
         <span>Семейный фестиваль и соревнования по плаванию на открытой воде</span>
       </div>
       <div class="footer-meta">
-        <span>Обновлено: 7 июля 2026</span>
+        <span>Обновлено: 13 июля 2026</span>
         <a href="#top">Наверх</a>
       </div>
     </footer>

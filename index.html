@@ -205,12 +205,12 @@
       <section class="status-strip" aria-labelledby="status-title">
         <div>
           <span>Статус регистрации</span>
-          <h2 id="status-title">Регистрация откроется после публикации положения</h2>
+          <h2 id="status-title">Регистрация на заплывы открыта</h2>
         </div>
         <p>
-          Здесь появятся ссылка на регистрацию, точное время старта, контакты оргкомитета и финальная схема пляжной территории.
+          Выберите дистанцию 400 или 800 метров. Оформление участия проходит на официальном портале RussiaRunning.
         </p>
-        <a class="button button-primary" href="#updates">Что появится дальше</a>
+        <a class="button button-primary" href="#distances">Выбрать дистанцию</a>
       </section>
 
       <section class="route-section" id="routes" aria-labelledby="routes-title" data-motion-section>
@@ -228,7 +228,7 @@
             <svg class="card-icon" aria-hidden="true"><use href="#icon-swimmer"></use></svg>
             <span class="choice-label">Участвую</span>
             <strong>Хочу выйти на старт</strong>
-            <p>Сразу к дистанциям, категориям и условиям, которые будут уточнены в положении.</p>
+            <p>Сразу к дистанциям, категориям и официальной регистрации на RussiaRunning.</p>
             <span class="choice-action">К дистанциям <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
           </a>
           <a class="route-choice" href="#program">
@@ -271,18 +271,32 @@
           </div>
 
           <div class="distance-grid" aria-label="Дистанции соревнований">
-            <article class="distance-card">
+            <a
+              class="distance-card"
+              href="https://reg.russiarunning.com/OpenWaterSwimmingCompetitionGubkinskyPyakupurRiver/9067d758-a3db-4819-876c-75fa7c54ac14/Register"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Зарегистрироваться на заплыв 400 метров на портале RussiaRunning"
+            >
               <svg class="distance-icon" aria-hidden="true"><use href="#icon-swimmer"></use></svg>
               <span class="distance-label">Любители</span>
               <strong>400 м</strong>
               <p>Дистанция для участников категории «Любители».</p>
-            </article>
-            <article class="distance-card distance-card-accent">
+              <span class="distance-register">Зарегистрироваться <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+            </a>
+            <a
+              class="distance-card distance-card-accent"
+              href="https://reg.russiarunning.com/OpenWaterSwimmingCompetitionGubkinskyPyakupurRiver/6680b170-d57e-4ac1-9597-c9f5429202ad/Register"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Зарегистрироваться на заплыв 800 метров на портале RussiaRunning"
+            >
               <svg class="distance-icon" aria-hidden="true"><use href="#icon-buoy"></use></svg>
               <span class="distance-label">Профи</span>
               <strong>800 м</strong>
               <p>Дистанция для участников категории «Профи».</p>
-            </article>
+              <span class="distance-register">Зарегистрироваться <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+            </a>
           </div>
 
           <div class="category-strip" aria-label="Категории участников">
@@ -436,27 +450,37 @@
       <section class="updates-section" id="updates" aria-labelledby="updates-title">
         <div>
           <div class="section-kicker">Регистрация</div>
-          <h2 id="updates-title">Регистрация откроется после публикации положения.</h2>
+          <h2 id="updates-title">Выберите дистанцию и зарегистрируйтесь.</h2>
         </div>
         <div class="updates-panel">
           <div class="registration-state" aria-label="Текущий статус регистрации">
             <span>Сейчас</span>
-            <strong>Ожидается положение соревнований</strong>
+            <strong>Регистрация на RussiaRunning открыта</strong>
           </div>
           <p>
-            На сайт осталось добавить ссылку регистрации, положение соревнований, точное время начала, контакты оргкомитета и финальную схему пляжной территории.
+            Для каждой дистанции действует отдельная форма. Ссылка откроется на официальном портале регистрации RussiaRunning.
           </p>
           <ul class="readiness-list" aria-label="Что уже готово и что ожидается">
             <li><span class="status-dot is-ready" aria-hidden="true"></span>Дата, место и формат события опубликованы</li>
             <li><span class="status-dot is-ready" aria-hidden="true"></span>Дистанции 400 м и 800 м обозначены</li>
-            <li><span class="status-dot" aria-hidden="true"></span>Регистрационная ссылка ожидается</li>
+            <li><span class="status-dot is-ready" aria-hidden="true"></span>Официальная регистрация открыта</li>
             <li><span class="status-dot" aria-hidden="true"></span>Финальная схема пляжа ожидается</li>
           </ul>
           <div class="updates-actions">
-            <a class="button button-primary" href="#distances">Посмотреть дистанции</a>
-            <a class="button button-ghost" href="#program">Посмотреть программу</a>
+            <a
+              class="button button-primary"
+              href="https://reg.russiarunning.com/OpenWaterSwimmingCompetitionGubkinskyPyakupurRiver/9067d758-a3db-4819-876c-75fa7c54ac14/Register"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Регистрация на 400 м</a>
+            <a
+              class="button button-ghost"
+              href="https://reg.russiarunning.com/OpenWaterSwimmingCompetitionGubkinskyPyakupurRiver/6680b170-d57e-4ac1-9597-c9f5429202ad/Register"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Регистрация на 800 м</a>
           </div>
-          <p class="note">Статус: событие объявлено, регистрационная ссылка ожидается.</p>
+          <p class="note">Регистрация проводится на внешнем официальном портале RussiaRunning.</p>
         </div>
       </section>
 
@@ -494,7 +518,7 @@
         <span>Семейный фестиваль и соревнования по плаванию на открытой воде</span>
       </div>
       <div class="footer-meta">
-        <span>Обновлено: 13 июля 2026</span>
+        <span>Обновлено: 14 июля 2026</span>
         <a href="#top">Наверх</a>
       </div>
     </footer>

@@ -950,9 +950,10 @@ button {
 
 .distance-card {
   position: relative;
+  display: block;
   overflow: hidden;
   min-height: 300px;
-  padding: 28px;
+  padding: 28px 28px 82px;
   color: var(--white);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -965,6 +966,7 @@ button {
   inset: auto -20% -42% 35%;
   height: 180px;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 62%);
+  pointer-events: none;
 }
 
 .distance-card-accent {
@@ -1002,6 +1004,29 @@ button {
   color: rgba(255, 255, 255, 0.8);
   font-size: 1.1rem;
   line-height: 1.55;
+}
+
+.distance-register {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sun);
+  font-weight: 950;
+}
+
+.distance-register svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 180ms var(--ease-out);
+}
+
+.distance-card:hover .distance-register svg,
+.distance-card:focus-visible .distance-register svg {
+  transform: translateX(4px);
 }
 
 .category-strip {
